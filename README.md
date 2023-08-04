@@ -6,5 +6,5 @@ Vaiiii corintia
 ## Megan Fox
 Nossa embaixadora 
 
-##aMIGOS
+## AMIGOS
 COMO É AMIGO? PENSA QUE ESTOU DURO?
