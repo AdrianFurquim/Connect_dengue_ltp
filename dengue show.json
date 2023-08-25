@@ -1,0 +1,61 @@
+POST
+[
+{
+“id_quiz”:”1”,
+“respostas”:”1. Acetilsalicílico (AAS)
+2. Desejo gestacional
+3. Não, pois a picada tem os mesmos sintomas que de outro mosquito qualquer
+4. 3 a 8
+5. Sim, pois ele é fraco e morreria de dengue se adquirisse o vírus mais forte”,
+“pontuacao”:”3/5”
+
+}
+{
+“id_quiz”:”2”,
+“respostas”:”1. Dipirona
+2. Febre alta ❬ 100%
+3. Só não dá quando é picado no dedão da mão esquerda.
+4. 7 a 12
+5. Não há diferença”,
+“pontuacao”:”1/5”
+}
+]
+
+GET
+[
+{
+{
+“id_quiz”:”1”,
+“respostas”:”1. Acetilsalicílico (AAS)
+2. Desejo gestacional
+3. Não, pois a picada tem os mesmos sintomas que de outro mosquito qualquer
+4. 3 a 8
+5. Sim, pois ele é fraco e morreria de dengue se adquirisse o vírus mais forte”,
+“pontuacao”:”3/5”
+
+}
+{
+“id_quiz”:”2”,
+“respostas”:”1. Dipirona
+2. Febre alta ❬ 100%
+3. Só não dá quando é picado no dedão da mão esquerda.
+4. 7 a 12
+5. Não há diferença”,
+“pontuacao”:”1/5”
+}
+]
+
+DELETE
+
+dengue_show/delete/{id_quiz}
+dengue_show/delete/2
+
+{
+“id_quiz”:”2”,
+“respostas”:”1. Dipirona
+2. Febre alta ❬ 100%
+3. Só não dá quando é picado no dedão da mão esquerda.
+4. 7 a 12
+5. Não há diferença”,
+“pontuacao”:”1/5”
+}
