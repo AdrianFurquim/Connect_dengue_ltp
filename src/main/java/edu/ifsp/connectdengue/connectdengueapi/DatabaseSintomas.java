@@ -1,7 +1,9 @@
-package edu.ifsp.connectdengue.connectdengueapi.model;
+package edu.ifsp.connectdengue.connectdengueapi;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import edu.ifsp.connectdengue.connectdengueapi.model.Sintomas;
 
 public class DatabaseSintomas {
      public static ArrayList<Sintomas> sintomas;

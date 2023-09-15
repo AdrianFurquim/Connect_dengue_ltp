@@ -3,6 +3,7 @@ package edu.ifsp.connectdengue.connectdengueapi.model;
 import java.util.ArrayList;
 
 import edu.ifsp.connectdengue.connectdengueapi.DatabaseRelato;
+import edu.ifsp.connectdengue.connectdengueapi.DatabaseSintomas;
 
 public class SintomasDAO {
     private DatabaseSintomas db;
