@@ -8,8 +8,6 @@ public class ConnectdengueApiApplication {
 
 	public static void main(String[] args) {
 		DatabaseRelato.init();
-		SpringApplication.run(ConnectdengueApiApplication.class, args);
-
 		DatabaseDenuncia.init();
 		SpringApplication.run(ConnectdengueApiApplication.class, args);
 	}
