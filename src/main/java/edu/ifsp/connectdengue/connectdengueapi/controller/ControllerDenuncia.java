@@ -1,7 +1,10 @@
 package edu.ifsp.connectdengue.connectdengueapi.controller;
 
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,74 +14,46 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.ifsp.connectdengue.connectdengueapi.model.Denuncia;
-import edu.ifsp.connectdengue.connectdengueapi.model.DenunciaDAO;
-import edu.ifsp.connectdengue.connectdengueapi.model.Relato;
-import edu.ifsp.connectdengue.connectdengueapi.model.RelatoDAO;
+import edu.ifsp.connectdengue.connectdengueapi.repository.DenunciasRepository;
 
 
-    @RestController
-    public class ControllerDenuncia{
+@RestController
+@CrossOrigin
+public class ControllerDenuncia {
+
+    @Autowired
+    DenunciasRepository denunciasRepository;
 
     @GetMapping("/dengue/denuncias")
     public List<Denuncia> verDenuncias() {
-        DenunciaDAO denunciaDado = DenunciaDAO.getInstance();
-        List<Denuncia> denuncias = denunciaDado.findAll();
-        return denuncias;
+
+        return (List<Denuncia>) denunciasRepository.findAll();
     }
-    
+
     @GetMapping("/dengue/denuncias/{id}")
-    public Denuncia verDenunciasProcura(@PathVariable("id") long idDenuncia) {
+    public Optional<Denuncia> verDenunciasProcura(@PathVariable("id") long idDenuncia) {
 
-        DenunciaDAO denunciaDado = DenunciaDAO.getInstance();
-        List<Denuncia> denuncias = denunciaDado.findAll();
-        for (Denuncia denuncia : denuncias) {
-            if (denuncia.getIdDenuncia() == idDenuncia) {
-             return denuncia;
-            }
-        }
-        return null;
-    }
-
-     @PostMapping("/dengue/denuncias/inserir")
-     public List<Denuncia> inserirDenunciaInserir(@RequestBody List<Denuncia> denunciasList) {
-
-        DenunciaDAO denunciaDado = DenunciaDAO.getInstance();
-        List<Denuncia> denuncias = denunciaDado.findAll();
-        int existente = 0;
-
-        for (Denuncia denunciaFor : denuncias) {
-            for (Denuncia denunciaList : denunciasList) {
-                if (denunciaList.getIdDenuncia() == denunciaFor.getIdDenuncia()) {
-                    existente++;
-                    break;
-                }
-            }
-        }
-
-        if (existente > 0) {
-            return null;
-        } else {
-            for (Denuncia denunciaList : denunciasList) {
-                denunciaDado.create(denunciaList);
-            }
+        if(denunciasRepository.existsById(idDenuncia)){
+            return denunciasRepository.findById(idDenuncia);
+        }else{
             return null;
         }
     }
 
-     @DeleteMapping("/dengue/denuncias/remove/{id}")
-     public Denuncia removerDenuncia(@PathVariable("id") long idDenuncia) {
+    @PostMapping("/dengue/denuncias/inserir")
+    public List<Denuncia> inserirDenunciaInserir(@RequestBody List<Denuncia> denunciasList) {
+        return (List<Denuncia>) denunciasRepository.saveAll(denunciasList);
+    }
+
+    @DeleteMapping("/dengue/denuncias/remove/{id}")
+    public String removerDenuncia(@PathVariable("id") Long idDenuncia) {
+
+        if(denunciasRepository.existsById(idDenuncia)){
+            denunciasRepository.deleteById(idDenuncia);
+            return "Denuncia deletada com sucesso!";
+        }else{
+            return "ID não encontrado, por favor, insira outro ID";
+        }
         
-        DenunciaDAO denunciaDado = DenunciaDAO.getInstance();
-        List<Denuncia> denuncias = denunciaDado.findAll();
-        for (Denuncia denuncia : denuncias) {
-                if(denuncia.getIdDenuncia() == idDenuncia){
-                denunciaDado.delete(denuncia);
-                return denuncia;
-            }else{
-                
-            }
-        }
-        return null;
     }
 }
-    

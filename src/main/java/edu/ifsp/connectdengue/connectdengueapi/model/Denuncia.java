@@ -1,37 +1,27 @@
 package edu.ifsp.connectdengue.connectdengueapi.model;
 
-import edu.ifsp.connectdengue.connectdengueapi.DatabaseDenuncia;
-import edu.ifsp.connectdengue.connectdengueapi.DatabaseRelato;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
+@Entity
 public class Denuncia {
-    protected long idDenuncia;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected double latitude;
     protected double longitude;
     protected String estado;
     protected String municipio;
     
-    
-
     public Denuncia() {
     }
 
-
-    public Denuncia(long idDenuncia, double latitude, double longitude, String estado, String municipio) {
-        this.idDenuncia = idDenuncia;
+    public Denuncia(double latitude, double longitude, String estado, String municipio) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.estado = estado;
         this.municipio = municipio;
-    }
-
-
-    public long getIdDenuncia() {
-        return idDenuncia;
-    }
-
-
-    public void setIdDenuncia(long idDenuncia) {
-        this.idDenuncia = idDenuncia;
     }
 
 
