@@ -1,7 +1,10 @@
 package edu.ifsp.connectdengue.connectdengueapi.controller;
 
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,76 +14,45 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.ifsp.connectdengue.connectdengueapi.model.Relato;
-import edu.ifsp.connectdengue.connectdengueapi.model.RelatoDAO;
+import edu.ifsp.connectdengue.connectdengueapi.repository.RelatosRepository;
 
 @RestController
+@CrossOrigin
 public class ControllerRelato {
+
+    @Autowired
+    RelatosRepository relatosRepository;
 
     @GetMapping("/dengue/relatos")
     public List<Relato> verRelatos() {
-        RelatoDAO relatosDados = RelatoDAO.getInstance();
-        List<Relato> relatos = relatosDados.findAll();
-        return relatos;
+        
+        return (List<Relato>) relatosRepository.findAll();
     }
 
     @GetMapping("/dengue/relatos/{id}")
-    public Relato verRelatosProcura(@PathVariable("id") long idRelato) {
+    public Optional<Relato> verRelatosProcura(@PathVariable("id") long idRelato) {
 
-        RelatoDAO relatoDados = RelatoDAO.getInstance();
-        List<Relato> relatos = relatoDados.findAll();
-        for (Relato relato : relatos) {
-            if (relato.getIdRelato() == idRelato) {
-                return relato;
-            }
+        if(relatosRepository.existsById(idRelato)){
+            return relatosRepository.findById(idRelato);
+        }else{
+            return null;
         }
-        return null;
     }
 
-    @PostMapping("/dengue/relatos/incerir")
+    @PostMapping("/dengue/relatos/inserir")
     public List<Relato> incerirRelatoIncerir(@RequestBody List<Relato> relatosList) {
 
-        RelatoDAO relatoDados = RelatoDAO.getInstance();
-        List<Relato> relatos = relatoDados.findAll();
-        int existente = 0;
-
-        for (Relato relatoFor : relatos) {
-            for (Relato relatoList : relatosList) {
-                if (relatoList.getIdRelato() == relatoFor.getIdRelato()) {
-                    existente++;
-                    break;
-                }
-            }
-        }
-
-        if (existente > 0) {
-            return null;
-        } else {
-            for (Relato relatoList : relatosList) {
-                relatoDados.create(relatoList);
-            }
-            return null;
-        }
+        return (List<Relato>) relatosRepository.saveAll(relatosList);
     }
 
     @DeleteMapping("/dengue/relatos/remove/{id}")
-    public Relato removerRelato(@PathVariable("id") long idRelato) {
+    public String removerRelato(@PathVariable("id") long idRelato) {
 
-        RelatoDAO relatoDados = RelatoDAO.getInstance();
-        List<Relato> relatos = relatoDados.findAll();
-    
-        Relato relatoParaRemover = null;
-    
-        for (Relato relato : relatos) {
-            if (relato.getIdRelato() == idRelato) {
-                relatoParaRemover = relato;
-                break; // Encontrou o relato, pode sair do loop.
-            }
+        if(relatosRepository.existsById(idRelato)){
+            relatosRepository.deleteById(idRelato);
+            return "Relato deletado com sucesso!";
+        }else{
+            return "ID não encontrado, por favor, insira outro ID";
         }
-        
-        if (relatoParaRemover != null) {
-            relatoDados.delete(relatoParaRemover);
-        }
-        
-        return null;
     }
 }

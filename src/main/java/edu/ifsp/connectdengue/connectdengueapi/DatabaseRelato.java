@@ -10,7 +10,7 @@ public class DatabaseRelato {
 
     public static void init(){
         relatos = new ArrayList<Relato>();
-        relatos.add(new Relato(0, "Teste", "Teste", "Teste", "Teste"));
+        relatos.add(new Relato("Teste", "Teste", "Teste", "Teste"));
     }
 
     public void addDadoRelato(Relato novo){

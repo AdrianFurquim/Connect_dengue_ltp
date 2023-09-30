@@ -1,8 +1,14 @@
 package edu.ifsp.connectdengue.connectdengueapi.model;
 
-import edu.ifsp.connectdengue.connectdengueapi.DatabaseRelato;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
+@Entity
 public class Relato {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected long idRelato;
     protected String nome;
     protected String experiencia;
@@ -12,16 +18,11 @@ public class Relato {
     public Relato() {
     }
 
-    public Relato(long idRelato, String nome, String experiencia, String localicacaoEstado, String relato) {
-        this.idRelato = idRelato;
+    public Relato(String nome, String experiencia, String localicacaoEstado, String relato) {
         this.nome = nome;
         this.experiencia = experiencia;
         this.localicacaoEstado = localicacaoEstado;
         this.relato = relato;
-    }
-
-    public void addDado(DatabaseRelato databaseRelatoDados){
-        databaseRelatoDados.relatos.add(this);
     }
 
     public long getIdRelato() {
