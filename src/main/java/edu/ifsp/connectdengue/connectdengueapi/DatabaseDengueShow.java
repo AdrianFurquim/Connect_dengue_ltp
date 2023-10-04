@@ -10,7 +10,7 @@ public class DatabaseDengueShow {
 
     public static void init(){
         quizes = new ArrayList<DengueShow>();
-        quizes.add(new DengueShow(1, new String[] {"resposta1", "resposta2", "resposta3",  "resposta4",  "resposta5"}, 5));
+        quizes.add(new DengueShow("resposta1", "resposta2", "resposta3",  "resposta4",  "resposta5", 5));
     }
 
     public void addDadoDengueShow(DengueShow novo){
