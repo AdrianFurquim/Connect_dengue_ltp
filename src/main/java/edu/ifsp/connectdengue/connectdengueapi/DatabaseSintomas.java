@@ -10,7 +10,7 @@ public class DatabaseSintomas {
 
     public static void init(){
         sintomas = new ArrayList<Sintomas>();
-        sintomas.add(new Sintomas(0, "Eder", "febre", "forte"));
+        sintomas.add(new Sintomas( "Eder", "febre", "forte"));
     }
 
     public void addDadoSintomas(Sintomas novo){

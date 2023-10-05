@@ -1,7 +1,15 @@
 package edu.ifsp.connectdengue.connectdengueapi.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Sintomas {
-    private int idSintomas;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long idSintomas;
     private String nome;
     private String descricao;
     private String intensidade;
@@ -10,20 +18,19 @@ public class Sintomas {
 
     }
     
-    public Sintomas(int idSintomas, String nome, String descricao, String intensidade) {
-        this.idSintomas = idSintomas;
+    public Sintomas( String nome, String descricao, String intensidade) {
         this.nome = nome;
         this.descricao = descricao;
         this.intensidade = intensidade;
     }
 
 
-    public int getIdSintomas() {
+    public long getIdSintomas() {
         return idSintomas;
     }
 
 
-    public void setIdSintomas(int idSintomas) {
+    public void setIdSintomas(long idSintomas) {
         this.idSintomas = idSintomas;
     }
 
@@ -57,7 +64,4 @@ public class Sintomas {
         this.intensidade = intensidade;
     }
      
-    
-
-
 }

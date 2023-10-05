@@ -1,7 +1,10 @@
 package edu.ifsp.connectdengue.connectdengueapi.controller;
 
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,54 +12,50 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import edu.ifsp.connectdengue.connectdengueapi.model.Relato;
-import edu.ifsp.connectdengue.connectdengueapi.model.RelatoDAO;
 import edu.ifsp.connectdengue.connectdengueapi.model.Sintomas;
-import edu.ifsp.connectdengue.connectdengueapi.model.SintomasDAO;
+import edu.ifsp.connectdengue.connectdengueapi.repository.SintomasRepository;
 
 
 @RestController
+@CrossOrigin
 public class ControllerSintomas {
+
+    @Autowired
+    SintomasRepository sintomasRepository;
+
     @GetMapping("/dengue/sintomas")
     public List<Sintomas> verSintomas() {
-        SintomasDAO sintomasDados = SintomasDAO.getInstance();
-        List<Sintomas> sintomas = sintomasDados.findAll();
-        return sintomas;
+
+        return (List<Sintomas>) sintomasRepository.findAll();
     }
+
+    @GetMapping("/dengue/sintomas/{id}")
+    public Optional<Sintomas> verSintomasProcura(@PathVariable("id") long idSintomas) {
+
+        if(sintomasRepository.existsById(idSintomas)){
+            return sintomasRepository.findById(idSintomas);
+        }else{
+            return null;
+        
+    }
+}
 
     @PostMapping("/dengue/sintomas/inserir")
-    public Sintomas incerirSintomas(@RequestBody Sintomas sintoma) {
-
-        SintomasDAO sintomasDados = SintomasDAO.getInstance();
-
-        List<Sintomas> sintomas = sintomasDados.findAll();
-        int existente = 0;
-        for (Sintomas sintomasFor : sintomas) {
-            if(sintoma.getIdSintomas() == sintomasFor.getIdSintomas()){
-                existente++;
-            }
-        }
-        if(existente > 0){
-            return null;
-        }else{
-            sintomasDados.create(sintoma);
-            return sintoma;
-        }
+    public List<Sintomas> incerirSintomasIncerir(@RequestBody List<Sintomas> sintomaList) {
+        return (List<Sintomas>) sintomasRepository.saveAll(sintomaList);
         
     }
 
 
-@DeleteMapping("/dengue/sintomas/remove/{id}")
-    public Sintomas removerSintomas(@PathVariable("id") long idSintomas) {
+    @DeleteMapping("/dengue/sintomas/remove/{id}")
+    public String removerSintomas(@PathVariable("id") long idSintomas) {
         
-        SintomasDAO sintomasDados = SintomasDAO.getInstance();
-        List<Sintomas> sintomas = sintomasDados.findAll();
-        for (Sintomas sintoma : sintomas) {
-            if(sintoma.getIdSintomas() == idSintomas){
-                sintomasDados.delete(sintoma);
-                return sintoma;
-            }
+        if(sintomasRepository.existsById(idSintomas)){
+            sintomasRepository.deleteById(idSintomas);
+            return "Sintomas deletado com sucesso!";
+        }else{
+            return "ID não encontrado, por favor, insira outro ID";
         }
-        return null;
+    
     }
 }
