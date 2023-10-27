@@ -21,7 +21,7 @@ public class ControllerDengueShow {
 
     @Autowired
     DengueShowRepository dengueShowRepository;
-    @GetMapping("/dengueshow/ver")
+    @GetMapping("/dengueshow/ver")  
     public List<DengueShow> verDengueShows() {
 
         return (List<DengueShow>) dengueShowRepository.findAll();
@@ -43,7 +43,7 @@ public class ControllerDengueShow {
         }
     }
 
-    @PostMapping("dengueshow/inserir")
+    @PostMapping("/dengueshow/inserir")
     public List<DengueShow> inserirQuizinserir(@RequestBody List<DengueShow> quizList) {
         return (List<DengueShow>) dengueShowRepository.saveAll(quizList);
     }
