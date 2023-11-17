@@ -7,10 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ConnectdengueApiApplication {
 
 	public static void main(String[] args) {
-		DatabaseRelato.init();
-		DatabaseDenuncia.init();
-		DatabaseSintomas.init();
-		DatabaseDengueShow.init();
 		SpringApplication.run(ConnectdengueApiApplication.class, args);
 	}
 }

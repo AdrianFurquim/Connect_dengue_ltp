@@ -1,4 +1,4 @@
-package edu.ifsp.ltp.exemplo_springsecurity.security;
+package edu.ifsp.connectdengue.connectdengueapi.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -54,7 +54,7 @@ public class WebSecurityConfig {
     public UserDetailsService userDetailsService() {
          UserDetails user = User.withDefaultPasswordEncoder()
              .username("connectdengue")
-             .password("meganfox")
+             .password("connectdengue")
              .build();
 
          return new InMemoryUserDetailsManager(user);
