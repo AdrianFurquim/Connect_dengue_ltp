@@ -50,4 +50,4 @@ jobs:
           app-name: 'connect-dengue'
           slot-name: 'Production'
           package: '*.jar'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_EE55F214CA6D4D0FAC5F7C747B875ED3 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_FD2BC7CB51DC4A01A9A9446AF1B44795 }}
